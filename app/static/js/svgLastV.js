@@ -97,10 +97,7 @@ const chart = (num)=>{
             console.log(scale(d.group))
             return d => scale(d.group);
         } */
-        console.log(1);
         d3.json("/static/json/data.json").then((response)=>{
-            console.log(response);
-            console.log(2);
             const nodes = response.nodes;
             const links = response.links; 
             /* data.links.map(d => links.push(d));

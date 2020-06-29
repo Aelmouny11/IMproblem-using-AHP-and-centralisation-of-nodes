@@ -2,6 +2,7 @@ var fileInput = document.getElementById('user_group_logo');
 
 fileInput.onchange = function(e){
     var fullPath = fileInput.value;
+    console.log(fullPath)
     if (fullPath) {
         var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
         var filename = fullPath.substring(startIndex);
