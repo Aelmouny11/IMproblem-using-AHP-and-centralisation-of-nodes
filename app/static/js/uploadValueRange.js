@@ -7,7 +7,7 @@ const sliderR = (number)=>{
 
     slider.oninput = function() {
       output.innerHTML = this.value;
-    }  
+    }
 }
  sliderR(1);
  sliderR(2);

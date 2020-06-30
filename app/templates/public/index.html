@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="/static/css/Custom-Upload-File.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/css/swiper.min.css">
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/7.0.2/math.min.js"></script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 
@@ -56,10 +57,15 @@
                 <div class="col-lg-10 mx-auto">
                     <h2>Stylish Portfolio is the perfect theme for your next project!</h2>
                     <p class="lead mb-5"><span>This theme features a flexible, UX friendly sidebar menu and stock photos from our friends at&nbsp;</span><a href="https://unsplash.com/">Unsplash</a><span>!</span></p>
-                    <form class="d-flex d-lg-flex justify-content-center justify-content-lg-center">
-                        <div style="width: 200px;"><input type="file" id="user_group_logo" class="custom-file-input" name="user_group_logo" required="">
-                            <div class="text-center"><label id="user_group_label" for="user_group_logo"><i class="fas fa-upload"></i>&nbsp;Choose an CSV File...</label></div>
-                            <div class="text-center mt-2"><button class="btn btn-primary" type="submit">Upload</button></div>
+                    <form method="POST" id="uploadFile" class="d-flex d-lg-flex justify-content-center justify-content-lg-center" enctype="multipart/form-data">
+                        <div style="width: 200px;">
+                            <input type="file" id="user_group_logo" class="custom-file-input" name="file" required="">
+                            <div class="text-center">
+                                <label id="user_group_label" for="user_group_logo"><i class="fas fa-upload"></i>&nbsp;Choose an CSV File...</label>
+                            </div>
+                            <div class="text-center mt-2">
+                                <button id="uploadFileBtn" class="btn btn-primary" type="submit">Upload</button>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -121,8 +127,9 @@
     <section>
         <div class="Ranking"style="margin-top: 15px; ">
             <canvas id="Ranking_Chart"  height="120px"></canvas>
-        </div>
+        </div> 
     </section>
+
     <footer class="footer text-center">
         <div class="container">
             <ul class="list-inline mb-5">
