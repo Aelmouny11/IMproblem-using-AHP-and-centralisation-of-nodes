@@ -59,12 +59,16 @@
                     <p class="lead mb-5"><span>This theme features a flexible, UX friendly sidebar menu and stock photos from our friends at&nbsp;</span><a href="https://unsplash.com/">Unsplash</a><span>!</span></p>
                     <form method="POST" id="uploadFile" class="d-flex d-lg-flex justify-content-center justify-content-lg-center" enctype="multipart/form-data">
                         <div style="width: 200px;">
-                            <input type="file" id="user_group_logo" class="custom-file-input" name="file" required="">
+                            <input type="file" id="user_group_logo" class="custom-file-input"  accept=".json" name="file" required="">
                             <div class="text-center">
                                 <label id="user_group_label" for="user_group_logo"><i class="fas fa-upload"></i>&nbsp;Choose an CSV File...</label>
                             </div>
                             <div class="text-center mt-2">
                                 <button id="uploadFileBtn" class="btn btn-primary" type="submit">Upload</button>
+                                <div id="svgwait" style="display: none;">
+                                    <img src="/static/img/svgwaitting.svg" alt="Kiwi standing on oval">
+                                </div>
+                                <div id="fileDone" style="display: none;"><i class="fas fa-check"></i></div>
                             </div>
                         </div>
                     </form>

@@ -66,6 +66,7 @@ const chart = (num)=>{
 
     const svg = svg1.append('g')
             .attr('transform', 'translate(' + [20, 20] + ')') ;
+    
        
       const drag = simulation => {
   

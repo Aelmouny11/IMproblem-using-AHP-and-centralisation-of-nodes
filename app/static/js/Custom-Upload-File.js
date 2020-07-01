@@ -14,11 +14,14 @@ fileInput.onchange = function(e){
             filename = filename.substring(1);
         }
         $('#user_group_label').text(filename);
+        $('#uploadFileBtn').show()
+        $('#fileDone').hide()
     }
 };
 $(function() {
     $('#uploadFileBtn').click(function() {
       if(fullPath){
+        $('#svgwait').show();
         var form_data = new FormData($('#uploadFile')[0]);
         $.ajax({
             type: 'POST',
@@ -28,10 +31,16 @@ $(function() {
             cache: false,
             processData: false,
             success: function(data) {
-                console.log('Success!');
+                if(+data){
+                    $('#svgwait').hide()
+                    $('#fileDone').show()
+                    $('#uploadFileBtn').hide()
+                }
+                else console.log("nothing");
+               
             }
         });
         return false;
-      }else{alert("No file selected !!");return false;}
+      }
     });
 });

@@ -15,7 +15,7 @@ def uploadfile():
    image = request.files["file"]
    image.save(os.path.join(app.config["UPLOAD_IMAGE"],image.filename))
    print("image saved ")
-   return "Good"
+   return "1"
 
 if __name__ == '__main__':
    app.run(debug=True)
