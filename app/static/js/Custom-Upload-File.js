@@ -1,12 +1,9 @@
 var fileInput = document.getElementById('user_group_logo');
 const button = document.getElementById('uploadFile');
 var fullPath ;
-const file = fileInput.files[0];
-fileInput.onchange = function(e){
-    
 
+fileInput.onchange = function(e){
     fullPath = fileInput.value;
-    console.log(fullPath)
     if (fullPath) {
         var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
         var filename = fullPath.substring(startIndex);
@@ -20,27 +17,25 @@ fileInput.onchange = function(e){
 };
 $(function() {
     $('#uploadFileBtn').click(function() {
-      if(fullPath){
-        $('#svgwait').show();
-        var form_data = new FormData($('#uploadFile')[0]);
-        $.ajax({
-            type: 'POST',
-            url: '/uploadfile',
-            data: form_data,
-            contentType: false,
-            cache: false,
-            processData: false,
-            success: function(data) {
-                if(+data){
-                    $('#svgwait').hide()
-                    $('#fileDone').show()
-                    $('#uploadFileBtn').hide()
+        if(fullPath){
+            $('#svgwait').show();
+            var form_data = new FormData($('#uploadFile')[0]);
+            $.ajax({
+                type: 'POST',
+                url: '/uploadfile',
+                data: form_data,
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(data) {
+                    if(+data){
+                        $('#svgwait').hide()
+                        $('#fileDone').show()
+                        $('#uploadFileBtn').hide()
+                    }
+                    else console.log("nothing");
                 }
-                else console.log("nothing");
-               
-            }
-        });
-        return false;
-      }
+            });
+        }return false;
     });
 });
