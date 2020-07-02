@@ -28,12 +28,13 @@ $(function() {
                 cache: false,
                 processData: false,
                 success: function(data) {
-                    if(+data){
+                        console.log(data);
                         $('#svgwait').hide()
                         $('#fileDone').show()
                         $('#uploadFileBtn').hide()
-                    }
-                    else console.log("nothing");
+                },
+                error  : function(err){
+                    console.error
                 }
             });
         }return false;

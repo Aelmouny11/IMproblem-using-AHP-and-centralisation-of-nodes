@@ -1,23 +1,37 @@
-
-const PM = {1:"1",2:"1",3:"1",4:"1",5:"1",6:"1"};
+var PM = {};
 
 const sliderR = (number)=>{
     const id_input = "Range"+number;
     const id_output = "valueRange"+number
     var slider = document.getElementById(id_input);
     var output = document.getElementById(id_output);
-    output.innerHTML = slider.value;
+    var val;
+    if (slider.value < 1 ) {
+    		val = -1*slider.value+2
+    		val = "1/"+val;
+    	} 
+    	else val = slider.value;
+
+    output.innerHTML = val;
 
     slider.oninput = function() {
-      output.innerHTML = this.value;
-      PM[number]=slider.value;
-      console.log(PM[number]);
+    	var val ;
+    	if (this.value < 1 ) {
+    		val = -1*this.value+2
+    		val = "1/"+val;
+    	} 
+    	else val = this.value;
+
+      	output.innerHTML = val;
     }
 }
-console.log(PM);
+
 $(function() {
     $('#CR').click(function() {
-    	var RC=[]
+    	for (var i = 1; i <=6; i++) {
+			var id = 'Range'+i;
+    		PM[i]=+document.getElementById(id).value;
+    	}
         $.ajax({
                 type: "POST",
                 url: "/ConsistencyRatio",
@@ -25,12 +39,21 @@ $(function() {
                 data: JSON.stringify(PM),
                 dataType: "json",
                 success: function(response) {
-                    console.log(response);              
+                    console.log(response["CR"] );
+                    $('#valueCR').html(response["CR"]);  
+                    if(response["CR"] >= 0.1 ){
+                    	$('#valueCR').css("color","red")
+                    }
+                    else{
+                     	$('#valueCR').css("color","green") 
+                    }
+
                 },
                 error: function(err) {
-                    console.log(err);                }
+                	console.log("err")
+                    console.log(err);                
+                }
             });
-        console.log(PM)
         return false;
     });
 });
