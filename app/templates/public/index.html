@@ -127,10 +127,10 @@
                 </div>
             </div>
             <div>
-              <button id="CR" class="btn btn-primary" type="submit">Consistency Ratio</button>
-              <p>CR&nbsp; :&nbsp;<span id="valueCR"></span></p>
+              <a id="CR" class="btn btn-secondary btn-xl" role="button"> Consistency Ratio </a>
+              <p style="margin-top: 10px;">CR&nbsp; :&nbsp;<span class="badge badge-light" id="valueCR"></span></p>
             </div>
-            <div><a id="getR" class="btn btn-primary btn-xl js-scroll-trigger" role="button" href="#rank">Get the Rank</a></div>
+            <div id="btngetR" style="display: none;"><a id="getR" class="btn btn-success btn-xl js-scroll-trigger" role="button" href="#rank">Get the Rank</a></div>
         </div>
     </section>
     <section id="rank">
@@ -154,7 +154,9 @@
     <script src="/static/js/stylish-portfolio.js"></script>
     <script src="/static/js/Custom-Upload-File.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.jquery.min.js"></script>
+
     <script src="/static/js/uploadValueRange.js"></script>
+    <script src="/static/js/getRanking.js"></script>
 
     <script src="/static/js/svgLastV.js"></script>
     <script src="/static/js/Bar_Chart.js"></script>

@@ -35,7 +35,7 @@ def get_Ranking(W, csvpath, jsonpath, DiGraph = False, Weighted = False):
     # print(Centrality)
     with open(jsonpath) as json_file:
         w = json.load(json_file)
-        print(w)
+        
         # for raw in Centrality:
         #     for w in ws:
         #         a = 0    

@@ -43,15 +43,23 @@ $(function() {
                     $('#valueCR').html(response["CR"]);  
                     if(response["CR"] >= 0.1 ){
                     	$('#valueCR').css("color","red")
+                        alldone.CR=false;
+                        $('#btngetR').hide()
                     }
                     else{
-                     	$('#valueCR').css("color","green") 
+                     	$('#valueCR').css("color","green")
+                        alldone.CR=true;
+                        if (alldone.file * alldone.CR) {
+                            $('#btngetR').show()
+                        }
                     }
 
                 },
                 error: function(err) {
-                	console.log("err")
-                    onsole.log(err);                
+                	// console.log("err")
+                    console.log(err);  
+                    alldone.CR=false;
+                    $('#btngetR').hide()             
                 }
             });
         return false;
@@ -63,21 +71,3 @@ sliderR(3);
 sliderR(4);
 sliderR(5);
 sliderR(6);
-
-
-$(function() {
-    $('#getR').click(function() {
-        $.ajax({
-                type: "GET",
-                url: "/DoIt",
-                success: function(response) {
-                    console.log(response );
-                },
-                error: function(err) {
-                    console.log("err")
-                    console.log(err);                
-                }
-            });
-        return false;
-    });
-});

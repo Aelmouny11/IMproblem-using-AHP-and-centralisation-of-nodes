@@ -1,6 +1,7 @@
 var fileInput = document.getElementById('user_group_logo');
 const button = document.getElementById('uploadFile');
 var fullPath ;
+var alldone ={file:false,CR:false};
 
 fileInput.onchange = function(e){
     fullPath = fileInput.value;
@@ -28,13 +29,19 @@ $(function() {
                 cache: false,
                 processData: false,
                 success: function(data) {
-                        console.log(data);
+                        // console.log(data);
                         $('#svgwait').hide()
                         $('#fileDone').show()
                         $('#uploadFileBtn').hide()
+                        alldone.file=true;
+                        if (alldone.file* alldone.CR) {
+                            $('#btngetR').show()
+                        }
                 },
                 error  : function(err){
                     console.error
+                    alldone.file=false;
+                    $('#btngetR').hide()
                 }
             });
         }return false;
