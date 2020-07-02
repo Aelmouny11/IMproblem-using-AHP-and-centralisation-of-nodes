@@ -1,9 +1,8 @@
-import networkx as nx 
-import matplotlib.pyplot as plt
+import networkx as nx
 
-def get_Ranking(filename, DiGraph = False, Weighted = False):
+def get_Centrality(filename, DiGraph = False, Weighted = False):
     
-    filename += ".csv"
+    # filename += ".csv"
     data = open(filename, 'rb')
     #make a Graph
     if DiGraph:
@@ -25,3 +24,12 @@ def get_Ranking(filename, DiGraph = False, Weighted = False):
     EC = nx.eigenvector_centrality_numpy(G)
 
     return {"DC":DC, "CC":CC, "BC": BC, "EC":EC}
+
+
+def get_Ranking(W, filename, DiGraph = False, Weighted = False):
+
+    Centrality = get_Centrality(filename, DiGraph = False, Weighted = False)
+
+    print(Centrality)
+
+    return "1"

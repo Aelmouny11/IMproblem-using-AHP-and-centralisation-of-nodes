@@ -16,13 +16,13 @@ def Make_pairewiseMatrix(d):
         return x
         
 
-    array = np.array([[1,i('1',0),i('2',0),i('3',0)],
+    matrix = np.array([[1,i('1',0),i('2',0),i('3',0)],
                      [i('1'),1,i('4',0),i('5',0)],
                      [i('2'),i('4'),1,i('6',0)],
                      [i('3'),i('5'),i('6'),1]])    
-    print(array)  
+    print(matrix)  
 
-    return array
+    return matrix
 
 
 def Consistency_Ratio(data,N=4):

@@ -39,7 +39,7 @@ $(function() {
                 data: JSON.stringify(PM),
                 dataType: "json",
                 success: function(response) {
-                    console.log(response["CR"] );
+                    // console.log(response["CR"] );
                     $('#valueCR').html(response["CR"]);  
                     if(response["CR"] >= 0.1 ){
                     	$('#valueCR').css("color","red")
@@ -51,7 +51,7 @@ $(function() {
                 },
                 error: function(err) {
                 	console.log("err")
-                    console.log(err);                
+                    onsole.log(err);                
                 }
             });
         return false;
@@ -63,3 +63,21 @@ sliderR(3);
 sliderR(4);
 sliderR(5);
 sliderR(6);
+
+
+$(function() {
+    $('#getR').click(function() {
+        $.ajax({
+                type: "GET",
+                url: "/DoIt",
+                success: function(response) {
+                    console.log(response );
+                },
+                error: function(err) {
+                    console.log("err")
+                    console.log(err);                
+                }
+            });
+        return false;
+    });
+});
