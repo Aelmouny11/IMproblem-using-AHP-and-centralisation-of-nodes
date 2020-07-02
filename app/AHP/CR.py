@@ -20,7 +20,7 @@ def Make_pairewiseMatrix(d):
                      [i('1'),1,i('4',0),i('5',0)],
                      [i('2'),i('4'),1,i('6',0)],
                      [i('3'),i('5'),i('6'),1]])    
-    print(matrix)  
+    # print(matrix)  
 
     return matrix
 
@@ -39,7 +39,7 @@ def Consistency_Ratio(data,N=4):
     index = np.where(eigvals == lamb)
     for el in eigvects:
         Weighted = np.append(Weighted,el[0,index[0]])
-
+        
     CI=(lamb-N)/(N-1)
     
     
