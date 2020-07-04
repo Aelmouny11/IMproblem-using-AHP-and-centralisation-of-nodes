@@ -24,7 +24,7 @@
   box-sizing: border-box;
 }
 
-input {
+/*input {
   border: 1px solid transparent;
   background-color: #f1f1f1;
   padding: 10px;
@@ -67,4 +67,4 @@ input {
 
 .slider:hover {
   opacity: 1;
-}
+}*/

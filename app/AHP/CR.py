@@ -10,7 +10,8 @@ def Make_pairewiseMatrix(d):
     def i(x,rec=1):
         x = float(d[x])
         if x < 1:
-            x = -1/(x-2)
+            x = np.reciprocal(-x+2)
+            print(x)
         if rec:
             return np.reciprocal(x)
         return x
@@ -34,7 +35,6 @@ def Consistency_Ratio(data,N=4):
     Pairwise_Matrix = np.matrix(Make_pairewiseMatrix(data))
     
     eigvals , eigvects = np.linalg.eig(Pairwise_Matrix)
-
     lamb = eigvals.max()
     index = np.where(eigvals == lamb)
     for el in eigvects:
@@ -46,5 +46,6 @@ def Consistency_Ratio(data,N=4):
     CR=CI/RI[N-1]
     CR=float(CR)
     lamb=float(lamb)
+    print(lamb)
 
     return [lamb, Weighted, CR]

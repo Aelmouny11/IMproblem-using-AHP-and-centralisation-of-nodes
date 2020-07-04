@@ -1,3 +1,179 @@
+const height = 600;
+var width = screen.width;
+if(width > 1000)
+width-=20;
+
+var svg1 = d3.select('.content #svg1').attr("viewBox", [0, 0, width, height]).attr("style","position: absolute;");
+const svg = svg1.append('g').attr('transform', 'translate(' + [20, 20] + ')') ;
+
+const drag = simulation => {
+      
+    function dragstarted(d) {
+        if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+        d.fx = d.x;
+        d.fy = d.y;
+    }
+
+    function dragged(d) {
+        d.fx = d3.event.x;
+        d.fy = d3.event.y;
+    }
+                
+    function dragended(d) {
+        if (!d3.event.active) simulation.alphaTarget(0);
+        d.fx = null;
+        d.fy = null;
+    }
+                
+    return d3.drag()
+            .on("start", dragstarted)
+            .on("drag", dragged)
+            .on("end", dragended);
+}
+const scale = d3.scaleOrdinal(d3.schemeCategory10);
+d3.json("/static/json/data.json").then((response)=>{
+    const nodes = response.nodes;
+    const links = response.links; 
+    // console.log(links)
+    const simulation = d3.forceSimulation(nodes)
+    .force("link", d3.forceLink(links).id(d => d.id))
+    .force("charge", d3.forceManyBody())
+    .force("center", d3.forceCenter(width / 2, height / 2))
+    ;
+
+    const link = svg.append("g")
+    .attr("stroke", "#999")
+    .attr("stroke-opacity", 0.6)
+    .selectAll("line")
+    .data(links)
+    .enter()
+    .append("line")
+    .attr("stroke-width", d => Math.sqrt(d.value));
+
+    ;
+
+    const node = svg.append("g")
+    .attr("stroke", "#fff")
+    .attr("stroke-width", 1.5)
+    .selectAll("circle")
+    .data(nodes)
+    .enter()
+    .append("circle")
+    .attr("r", 5)
+    .attr("fill",d=>scale(d.group)) 
+    .call(drag(simulation));
+
+
+
+    node.append("title")
+    .text(d => d.id);
+    simulation.on("tick", () => {
+        link
+        .attr("x1", d => d.source.x)
+        .attr("y1", d => d.source.y)
+        .attr("x2", d => d.target.x)
+        .attr("y2", d => d.target.y);
+
+        node
+        .attr("cx", d => d.x)
+        .attr("cy", d => d.y);
+    });
+            //updateDownloadURL(svg1.node(), document.getElementById('download'));
+});
+        
+const graphchart = (file)=>{
+    var width = screen.width, height = 500;
+
+    if(width > 1000)
+        width-=20
+
+    const drag = simulation => {
+  
+function dragstarted(d) {
+if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+d.fx = d.x;
+d.fy = d.y;
+            }
+            
+            function dragged(d) {
+d.fx = d3.event.x;
+d.fy = d3.event.y;
+            }
+            
+            function dragended(d) {
+if (!d3.event.active) simulation.alphaTarget(0);
+d.fx = null;
+d.fy = null;
+            }
+            
+            return d3.drag()
+.on("start", dragstarted)
+.on("drag", dragged)
+.on("end", dragended);
+        }
+
+    var svg = d3.select("#GraphRank svg")
+        .attr("viewBox", [0, 0, width, height]);
+    d3.csv(file).then(links=>{
+
+        var nodesByName = {};
+
+          // Create nodes for each unique source and target.
+        links.forEach(link=>{
+            link.source = nodeByName(link.source);
+            link.target = nodeByName(link.target);
+        });
+
+        // Extract the array of nodes .
+        const nodes = d3.values(nodesByName);
+        const simulation = d3.forceSimulation(nodes)
+.force("link", d3.forceLink(links).id(d => d.name))
+.force("charge", d3.forceManyBody())
+.force("center", d3.forceCenter(width / 2, height / 2));
+
+        const scale = d3.scaleOrdinal(d3.schemeCategory10);
+        const link = svg.append("g")
+.attr("stroke", "#999")
+.attr("stroke-opacity", 0.6)
+.selectAll("line")
+.data(links)
+.enter()
+.append("line")
+//.attr("stroke-width", d => Math.sqrt(d.value))
+;
+        const node = svg.append("g")
+.attr("stroke", "#fff")
+.attr("stroke-width", 1.5)
+.selectAll("circle")
+.data(nodes)
+.enter()
+.append("circle")
+.attr("r", 5)
+.attr("fill",d=>scale(5)) 
+.call(drag(simulation));
+
+        node.append("title").text(d => d.name);
+        simulation.on("tick", () => {
+link
+.attr("x1", d => d.source.x)
+.attr("y1", d => d.source.y)
+.attr("x2", d => d.target.x)
+.attr("y2", d => d.target.y);
+
+node
+.attr("cx", d => d.x)
+.attr("cy", d => d.y);
+        });
+        // Start the force layout.
+        function nodeByName(name) {
+            return nodesByName[name] || (nodesByName[name] = {name: name});
+        }
+    });
+}
+// graphchart("/static/json/data.csv");
+
+
+
 /* function getDownloadURL(svg, callback) {
     var canvas;
     var source = svg.parentNode.innerHTML;
@@ -40,118 +216,3 @@
     });
   }
  */
-
-
-
-/* d3.select('.ff').append('svg').attr('version', 1.1)
-    .attr('xmlns', 'http://www.w3.org/2000/svg')    
-    .attr('xmlns:xlink',"http://www.w3.org/1999/xlink").attr('width',500+'px').attr('height',500+'px');
-
-const svg2 = d3.select('.ff svg');
-svg2.append('circle').attr('r',5);
-*/
-const chart = (num)=>{
-
-    const height = 600;
-    var width = screen.width;
-    if(width > 1000)
-        width-=20;
-
-    var svg1 = d3.select('.content #svg'+num).attr("viewBox", [0, 0, width, height]);
-            /* .attr('version', 1.1)
-            .attr('xmlns', 'http://www.w3.org/2000/svg')    
-            .attr('xmlns:xlink',"http://www.w3.org/1999/xlink") */    
-            /* .style('width', width + 'px')
-            .style('height',height+'px'); */
-
-    const svg = svg1.append('g')
-            .attr('transform', 'translate(' + [20, 20] + ')') ;
-    
-       
-      const drag = simulation => {
-  
-            function dragstarted(d) {
-                if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-                d.fx = d.x;
-                d.fy = d.y;
-            }
-            
-            function dragged(d) {
-                d.fx = d3.event.x;
-                d.fy = d3.event.y;
-            }
-            
-            function dragended(d) {
-                if (!d3.event.active) simulation.alphaTarget(0);
-                d.fx = null;
-                d.fy = null;
-            }
-            
-            return d3.drag()
-                .on("start", dragstarted)
-                .on("drag", dragged)
-                .on("end", dragended);
-        }
-        const scale = d3.scaleOrdinal(d3.schemeCategory10);
-       /*  const color = ()=>{
-            const scale = d3.scaleOrdinal(d3.schemeCategory10);
-            console.log(scale(d.group))
-            return d => scale(d.group);
-        } */
-        d3.json("/static/json/data.json").then((response)=>{
-            const nodes = response.nodes;
-            const links = response.links; 
-            /* data.links.map(d => links.push(d));
-            const nodes = data.nodes.map(d =>d);*/
-            const simulation = d3.forceSimulation(nodes)
-                .force("link", d3.forceLink(links).id(d => d.id))
-                .force("charge", d3.forceManyBody())
-                .force("center", d3.forceCenter(width / 2, height / 2))
-                ;
-
-           /*  const svg = d3.select('.content svg')
-                .attr("viewBox", [0, 0, width, height]);*/
-            
-            const link = svg.append("g")
-                .attr("stroke", "#999")
-                .attr("stroke-opacity", 0.6)
-                .selectAll("line")
-                .data(links)
-                .enter()
-                .append("line")
-                .attr("stroke-width", d => Math.sqrt(d.value));
-
-                ;
-            const node = svg.append("g")
-                .attr("stroke", "#fff")
-                .attr("stroke-width", 1.5)
-                .selectAll("circle")
-                .data(nodes)
-                .enter()
-                .append("circle")
-                .attr("r", 5)
-                .attr("fill",d=>scale(d.group)) 
-                .call(drag(simulation));
-
-
-
-            node.append("title")
-                .text(d => d.id);
-           // console.log(simulation.nodes());
-            simulation.on("tick", () => {
-                link
-                    .attr("x1", d => d.source.x)
-                    .attr("y1", d => d.source.y)
-                    .attr("x2", d => d.target.x)
-                    .attr("y2", d => d.target.y);
-
-                node
-                    .attr("cx", d => d.x)
-                    .attr("cy", d => d.y);
-            });
-            //updateDownloadURL(svg1.node(), document.getElementById('download'));
-        });
-
-}
-chart(1);
-//chart(1);

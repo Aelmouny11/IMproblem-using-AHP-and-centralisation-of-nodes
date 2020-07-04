@@ -19,7 +19,12 @@ app.config["UPLOAD_FILE"]=APP_Data
 
 @app.route('/')
 def index():
-   	return render_template('public/index.html')
+   response = make_response(render_template('public/index.html'))
+   if 'CNA_AHP_Key' not in request.cookies:
+      name=secrets.token_urlsafe(16)
+      response.set_cookie("CNA_AHP_Key",name)
+
+   return response
 
 @app.route('/uploadfile', methods = ['POST'])
 def uploadfile():
@@ -29,16 +34,9 @@ def uploadfile():
    resp = make_response()
    resp.set_cookie("namefile",file.filename)
 
-   name =""
-
-   if 'CNA_AHP_Key' in request.cookies:
-      name = request.cookies.get('CNA_AHP_Key')
-   else:
-      name=secrets.token_urlsafe(16)
-      resp.set_cookie("CNA_AHP_Key",name)
-      
+   name = request.cookies.get('CNA_AHP_Key')
    name += '.csv'
-   # file.filename = "1234.csv"
+
    file.save(os.path.join(app.config["UPLOAD_FILE"],name))
    
 
@@ -51,37 +49,41 @@ def uploadfile():
 def RC():
 
    array = request.get_json()
+   print(array)
    resp = Consistency_Ratio(array)
+   print(resp)
+   # name = ""
+   response = make_response()
 
-   name = ""
+   # if 'CNA_AHP_Key' not in request.cookies:
+   #    name = request.cookies.get('CNA_AHP_Key')
+   # else:
+   #    name=secrets.token_urlsafe(16)
+   #    response.set_cookie("CNA_AHP_Key",name)
 
-   if 'CNA_AHP_Key' in request.cookies:
-      name = request.cookies.get('CNA_AHP_Key')
-   else:
-      name=secrets.token_urlsafe(16)
-      response = make_response()
-      response.set_cookie("CNA_AHP_Key",name)
-
+   name = request.cookies.get('CNA_AHP_Key')
    name += '.json'
    
    with open(os.path.join(app.config["UPLOAD_FILE"],name), 'w') as f:
       json.dump({"w0":float(resp[1][0]),"w1":float(resp[1][1]),"w2":float(resp[1][2]),"w3":float(resp[1][3])}, f)
 
 
-   return jsonify({"CR":resp[2]}),200
+   return  jsonify({"CR":resp[2]}),200
 
 
 @app.route('/DoIt',methods=['GET'])
 def getRanking():
 
-   name = ""
+   # name = ""
    # print(request.cookies.get('CNA_AHP_Key'))
-   if 'CNA_AHP_Key' in request.cookies:
-      name = request.cookies.get('CNA_AHP_Key')
-   else:
-      name=secrets.token_urlsafe(16)
-      response = make_response()
-      response.set_cookie("CNA_AHP_Key",name)
+   # if 'CNA_AHP_Key' in request.cookies:
+   #    name = request.cookies.get('CNA_AHP_Key')
+   # else:
+   #    # name=secrets.token_urlsafe(16)
+   #    # response = make_response()
+   #    # response.set_cookie("CNA_AHP_Key",name)
+   #    pass
+   name = request.cookies.get('CNA_AHP_Key')
 
    csvname = name + '.csv'
    jsonname = name + '.json'
@@ -94,5 +96,6 @@ def getRanking():
    return jsonify(rank),200
 
 
-if __name__ == '__main__':
-   app.run(debug=True)
+# if __name__ == '__main__':
+#    # app.run(debug=True)
+#    app.run(host='0.0.0.0', debug=True, port=3134)
