@@ -14,10 +14,15 @@
     <link rel="stylesheet" href="/static/css/Custom-Upload-File.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/css/swiper.min.css">
 
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/7.0.2/math.min.js"></script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 
+    <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+ -->
     
 
 
@@ -44,8 +49,6 @@
     </header> -->
     <section>
         <div class="content">
-            <svg id="svg1">
-            </svg>
         </div>
     </section>
     <header class="d-flex masthead" style="background-image:url('/static/img/water-2748640.png');">
@@ -66,6 +69,14 @@
                             <input type="file" id="user_group_logo" class="custom-file-input" accept=".csv" name="file" required="">
                             <div class="text-center">
                                 <label id="user_group_label" for="user_group_logo"><i class="fas fa-upload"></i>&nbsp;Choose an CSV File...</label>
+                                <div class="form-check">
+                                      <input type="checkbox" class="form-check-input" id="DiGraph">
+                                      <label class="form-check-label" for="materialUnchecked">Directed Graph</label>
+                                </div>
+                                <div class="form-check">
+                                      <input type="checkbox" class="form-check-input" id="weighted">
+                                      <label class="form-check-label" for="materialUnchecked">Weighted Graph</label>
+                                </div>
                             </div>
                             <div class="text-center mt-2">
                                 <button id="uploadFileBtn" class="btn btn-primary" type="submit">Upload</button>
@@ -141,10 +152,10 @@
                 </div>
             </div>
             <div>
-              <a id="CR" class="btn btn-secondary btn-xl" role="button"> Consistency Ratio </a>
+              <a id="CR" class="btn btn-info btn-xl" role="button"> Consistency Ratio </a>
               <p style="margin-top: 10px;">CR&nbsp; :&nbsp;<span class="badge badge-light" id="valueCR"></span></p>
             </div>
-            <div id="btngetR" style="display: none;"><a id="getR" class="btn btn-success btn-xl js-scroll-trigger" role="button" href="#rank">Get the Rank</a></div>
+            <div id="btngetR" style="display: none;"><a id="getR" class="btn btn-dark btn-xl js-scroll-trigger" role="button" href="#rank">Get the Rank</a></div>
         </div>
     </section>
     <section id="rank">

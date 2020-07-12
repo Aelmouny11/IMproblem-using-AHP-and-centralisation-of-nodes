@@ -29,7 +29,6 @@ def index():
 @app.route('/uploadfile', methods = ['POST'])
 def uploadfile():
 
-
    file = request.files["file"]
    resp = make_response()
    resp.set_cookie("namefile",file.filename)
@@ -38,28 +37,16 @@ def uploadfile():
    name += '.csv'
 
    file.save(os.path.join(app.config["UPLOAD_FILE"],name))
-   
 
-   
-   
    return resp,200
    
 
 @app.route('/ConsistencyRatio', methods = ['POST'])
-def RC():
+def CR():
 
    array = request.get_json()
-   print(array)
    resp = Consistency_Ratio(array)
-   print(resp)
-   # name = ""
    response = make_response()
-
-   # if 'CNA_AHP_Key' not in request.cookies:
-   #    name = request.cookies.get('CNA_AHP_Key')
-   # else:
-   #    name=secrets.token_urlsafe(16)
-   #    response.set_cookie("CNA_AHP_Key",name)
 
    name = request.cookies.get('CNA_AHP_Key')
    name += '.json'
@@ -71,18 +58,13 @@ def RC():
    return  jsonify({"CR":resp[2]}),200
 
 
-@app.route('/DoIt',methods=['GET'])
+@app.route('/DoIt',methods=['POST'])
 def getRanking():
 
-   # name = ""
-   # print(request.cookies.get('CNA_AHP_Key'))
-   # if 'CNA_AHP_Key' in request.cookies:
-   #    name = request.cookies.get('CNA_AHP_Key')
-   # else:
-   #    # name=secrets.token_urlsafe(16)
-   #    # response = make_response()
-   #    # response.set_cookie("CNA_AHP_Key",name)
-   #    pass
+
+   infGraph = request.get_json() # infoGraph[1]==> weighted Graph(True) or not(False)
+                                 # infoGraph[2]==> DiGraph(True) or UnDiGraph(False)
+
    name = request.cookies.get('CNA_AHP_Key')
 
    csvname = name + '.csv'
@@ -91,7 +73,8 @@ def getRanking():
    CSVpath = os.path.join(app.config["UPLOAD_FILE"], csvname)
    Jsonpath = os.path.join(app.config["UPLOAD_FILE"], jsonname)
 
-   rank = get_Ranking(1,CSVpath,Jsonpath)
+
+   rank = get_Ranking(CSVpath,Jsonpath,infGraph['1'],infGraph['2'])
 
    return jsonify(rank),200
 

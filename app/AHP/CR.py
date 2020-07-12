@@ -46,6 +46,5 @@ def Consistency_Ratio(data,N=4):
     CR=CI/RI[N-1]
     CR=float(CR)
     lamb=float(lamb)
-    print(lamb)
-
+    
     return [lamb, Weighted, CR]

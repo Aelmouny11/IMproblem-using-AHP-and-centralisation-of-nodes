@@ -20,9 +20,15 @@ const objtChart = (xlab,ylab,typechart) =>{
 var mychart ;
 $(function() {
     $('#getR').click(function() {
+        const inf = {}
+        inf[1]=document.getElementById('DiGraph').checked
+        inf[2]=document.getElementById('weighted').checked
         $.ajax({
-                type: "GET",
+                type: "POST",
                 url: "/DoIt",
+                contentType: "application/json",
+                data:JSON.stringify(inf),
+                dataType: "json",
                 success: function(response) {
                     // console.log(response );
                     var xs = [];
@@ -36,9 +42,9 @@ $(function() {
                     const cookies = document.cookie.split(";").map(d=>d.split("="));
                     
                     var secretKey = cookies.filter(d=>d[0]=='CNA_AHP_Key');
-                    console.log(secretKey)
+                    // console.log(secretKey)
                     const namefile = "/static/Data/" + secretKey[0][1]+ ".csv";
-                    console.log(namefile);
+                    // console.log(namefile);
                     graphchart(namefile);
                 },
                 error: function(err) {

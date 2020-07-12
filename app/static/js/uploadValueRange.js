@@ -32,6 +32,7 @@ $(function() {
 			var id = 'Range'+i;
     		PM[i]=+document.getElementById(id).value;
     	}
+        // console.log(PM)
         $.ajax({
                 type: "POST",
                 url: "/ConsistencyRatio",

@@ -20,6 +20,7 @@ $(function() {
     $('#uploadFileBtn').click(function() {
         if(fullPath){
             $('#svgwait').show();
+            $('#uploadFileBtn').hide();
             var form_data = new FormData($('#uploadFile')[0]);
             $.ajax({
                 type: 'POST',
