@@ -23,24 +23,21 @@ def get_Centrality(filepath, DiGraph = False, Weighted = False):
     DC = nx.degree_centrality(G)
     CC = nx.closeness_centrality(G)
     BC = nx.betweenness_centrality(G)
-    EC = nx.eigenvector_centrality_numpy(G)
+    if DiGraph:
+        G = G.reverse()
+    EC = nx.eigenvector_centrality(G,1000)
 
     return {"DC":DC, "CC":CC, "BC": BC, "EC":EC}
 
-
-def get_Ranking(W, csvpath, jsonpath, DiGraph = False, Weighted = False):
+def get_Ranking(csvpath, jsonpath, DiGraph = False, Weighted = False):
 
     rank = {}
+    # print(DiGraph)
+    # print(Weighted)
     Centrality = get_Centrality(csvpath,DiGraph,Weighted)
     # print(Centrality)
     with open(jsonpath) as json_file:
         w = json.load(json_file)
-        
-        # for raw in Centrality:
-        #     for w in ws:
-        #         a = 0    
-        #         for el in Centrality[raw]:
-        #             print(Centrality[raw][el])
         for el in Centrality["DC"]:
             rank[el]=w['w0']*Centrality["DC"][el]+w['w1']*Centrality["CC"][el]+w['w2']*Centrality["BC"][el]+w['w3']*Centrality["EC"][el]
 
