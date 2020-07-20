@@ -32,18 +32,29 @@ def get_Ranking(csvpath, jsonpath, DiGraph = False, Weighted = False):
 
     data = {}
     rows = []
+    xs   = []
+    ys   = []
+
     Centrality = get_Centrality(csvpath,DiGraph,Weighted)
     with open(jsonpath) as json_file:
         w = json.load(json_file)
         for el in Centrality["DC"]:
             if el!="source" and el!="target":
                 score=w['w0']*Centrality["DC"][el]+w['w1']*Centrality["CC"][el]+w['w2']*Centrality["BC"][el]+w['w3']*Centrality["EC"][el]
-                rows.append({"name":el,"score":score,"DC":Centrality["DC"][el],"CC":Centrality["CC"][el],"BC":Centrality["BC"][el],"EC":Centrality["EC"][el]})
-
+                rows.append({"id":0,"name":el,"score":score,"DC":Centrality["DC"][el],"CC":Centrality["CC"][el],"BC":Centrality["BC"][el],"EC":Centrality["EC"][el]})
+                xs.append(el)
+                ys.append(score)               
 
     data["total"]=len(rows)
-    data["totalNotFiltered"]=len(rows)
+    data["xs"]=xs
+    data["ys"]=ys
+
+    rows = sorted(rows, key=lambda node: node.get("score"), reverse=True)
+    index=0
+    for el in rows:
+        index+=1
+        el["id"]=index
+
     data["rows"]=rows
 
-    
     return data

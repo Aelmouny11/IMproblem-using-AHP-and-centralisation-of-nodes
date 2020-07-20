@@ -30,20 +30,13 @@ $(function(){
                 data:JSON.stringify(inf),
                 dataType: "json",
                 success: function(response) {
-                    console.log(response)
                     $table.bootstrapTable('refreshOptions', {
                         showColumns: true,
                         search:true,
                         data: response
                     })
-                    var xs = [];
-                    var ys = [];
-                    for (const property in response["rows"]) {
-                        if (response["rows"][property]["name"]!="source"&&response["rows"][property]["name"]!="target") {
-                           xs.push(response["rows"][property]["name"]);
-                           ys.push(response["rows"][property]["score"]);
-                        }  
-					}
+                    var xs = response["xs"];
+                    var ys = response["ys"];
                     d3.select('#Ranking_Chart').remove();
                     d3.select('.Ranking').append('canvas').attr('id','Ranking_Chart').attr('height',"120px");
                     var ctx = document.getElementById('Ranking_Chart').getContext('2d');
@@ -60,3 +53,7 @@ $(function(){
         return false;
     });
 });
+
+function numtofixed(value) {
+    return value.toFixed(3);
+}
