@@ -1,12 +1,12 @@
 import networkx as nx
-import numpy as np
 import json
 
 def get_Centrality(filepath, DiGraph = False, Weighted = False):
     
-    # filename += ".csv"
+    # load data from csv file 
     data = open(filepath, 'rb')
-    #make a Graph
+
+    # make a Graph
     if DiGraph:
         G = nx.DiGraph()
     else:
@@ -16,10 +16,9 @@ def get_Centrality(filepath, DiGraph = False, Weighted = False):
         G = nx.read_weighted_edgelist(data,delimiter=',',create_using=G)    
     else:
         G = nx.read_edgelist(data,delimiter=',',create_using=G)
+        
 
-    #computing the Centrality Measures
-
-    
+    # computing the Centrality Measures  
     DC = nx.degree_centrality(G)
     CC = nx.closeness_centrality(G)
     BC = nx.betweenness_centrality(G)
@@ -45,7 +44,6 @@ def get_Ranking(csvpath, jsonpath, DiGraph = False, Weighted = False):
     data["total"]=len(rows)
     data["totalNotFiltered"]=len(rows)
     data["rows"]=rows
-    # print(dat)
 
     
     return data

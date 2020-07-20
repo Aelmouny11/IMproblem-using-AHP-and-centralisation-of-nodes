@@ -72,3 +72,8 @@ sliderR(3);
 sliderR(4);
 sliderR(5);
 sliderR(6);
+
+//function for the popovers in the icon question-marke
+$(document).ready(function(){
+        $('[data-toggle="popover"]').popover();   
+});

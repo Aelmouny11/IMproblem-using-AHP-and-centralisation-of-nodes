@@ -4,12 +4,12 @@ const objtChart = (xlab,ylab,typechart) =>{
                         data: {
                             labels: xlab,
                             datasets: [{
-                                label: '# of Votes',
+                                label: ' Score',
                                 data: ylab,
                                 backgroundColor: 
-                                    'rgba(255, 99, 132, 0.2)',
+                                    'rgba(169, 170, 171)',
                                 borderColor: 
-                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(84, 84, 84)',
                                 borderWidth: 1
                             }]
 					}

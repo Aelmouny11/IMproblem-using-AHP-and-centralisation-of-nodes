@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <title>Home - Brand</title>
     <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic">
@@ -54,8 +55,8 @@
         <div class="container text-center">
             <div class="row">
                 <div class="col-lg-10 mx-auto">
-                    <h2>First we need to upload the data #####################</h2>
-                    <p class="lead mb-5"><span>#######################&nbsp;</span><a href="https://unsplash.com/">Unsplash</a><span>!</span></p>
+                    <h2>Please upload a CSV file caontaining the network data</h2>
+                    <p class="lead mb-5"><span>Make sure you have ticked the option(s) below based on the network properties</span></p>
                     <form method="POST" id="uploadFile" class="d-flex d-lg-flex justify-content-center justify-content-lg-center" enctype="multipart/form-data">
                         <div style="width: 200px;">
                             <input type="file" id="user_group_logo" class="custom-file-input" accept=".csv" name="file" required="">
@@ -86,38 +87,55 @@
     <section id="services" class="content-section bg-primary text-white text-center">
         <div class="container">
             <div class="content-section-heading">
-                <h3 class="text-secondary mb-0">Services</h3>
-                <h2 class="mb-5">What We Offer</h2>
+                <h3 class="text-secondary mb-0">Centrality settings</h3>
+                <h3 class="mb-5">Set the pairwise comparisons between the different centralities based on your preference and priority</h3>
             </div>
             <div class="row d-lg-flex justify-content-lg-center">
                 <div class="col-md-6 col-lg-3 mb-5 mb-lg-0">
                     <div class="slidecontainer">
+                        <h6><span class="badge badge-dark" style="padding-right:11px; padding-left:11px; ">Degree</span>
+                        <i class="far fa-question-circle"data-container="body" data-toggle="popover" data-placement="top" data-content="The slider help you to set the comparison between two centralities Degree (on the lef) and Closeness (on the right), so if for example you set 4 means Degree is 4 times important than Closeness or if you set 1/3 means Degree is 1/3 important than Closeness, in other words Degree is less important than Closeness."></i>&nbsp;<span class="badge badge-dark">Closeness</span></h6>
                         <input type="range" id="Range1" min="-7" max="9" value="1">
                         <p><span class="badge badge-light" id="valueRange1"></span></p>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3 mb-5 mb-lg-0">
-                    <div class="slidecontainer"><input type="range" id="Range2" min="-7" max="9" value="1">
+                    <div class="slidecontainer">
+                        <h6><span class="badge badge-dark" style="padding-right:16px; padding-left:16px; ">Degree</span>
+                        <i class="far fa-question-circle"data-container="body" data-toggle="popover" data-placement="top" data-content="The slider help you to set the comparison between two centralities Degree (on the lef) and Betwenness (on the right), so if for example you set 4 means Degree is 4 times important than Betwenness or if you set 1/3 means Degree is 1/3 important than Betwenness, in other words Degree is less important than Betwenness."></i>&nbsp;<span class="badge badge-dark">Betwenness</span></h6>
+                        <input type="range" id="Range2" min="-7" max="9" value="1">
                         <p><span class="badge badge-light" id="valueRange2"></span></p>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3 mb-5 mb-lg-0">
-                    <div class="slidecontainer"><input type="range" id="Range3" min="-7" max="9" value="1">
+                    <div class="slidecontainer">
+                        <h6><span class="badge badge-dark" style="padding-right:16px; padding-left:16px;">Degree</span>
+                        <i class="far fa-question-circle"data-container="body" data-toggle="popover" data-placement="top" data-content="The slider help you to set the comparison between two centralities Degree (on the lef) and Eigenvector (on the right), so if for example you set 4 means Degree is 4 times important than Eigenvector or if you set 1/3 means Degree is 1/3 important than Eigenvector, in other words Degree is less important than Eigenvector."></i>&nbsp;<span class="badge badge-dark">Eigenvector</span></h6>
+                        <input type="range" id="Range3" min="-7" max="9" value="1">
                         <p><span class="badge badge-light" id="valueRange3"></span></p>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3 mb-5 mb-lg-0">
-                    <div class="slidecontainer"><input type="range" id="Range4" min="-7" max="9" value="1">
+                    <div class="slidecontainer">
+                        <h6><span class="badge badge-dark" style="padding-right:8px; padding-left:8px;">Closeness</span>
+                        <i class="far fa-question-circle"data-container="body" data-toggle="popover" data-placement="top" data-content="The slider help you to set the comparison between two centralities Closeness (on the lef) and Betwenness (on the right), so if for example you set 4 means Closeness is 4 times important than Betwenness or if you set 1/3 means Closeness is 1/3 important than Betwenness, in other words Closeness is less important than Betwenness.."></i>&nbsp;<span class="badge badge-dark">Betwenness</span></h6>
+                        <input type="range" id="Range4" min="-7" max="9" value="1">
                         <p><span class="badge badge-light" id="valueRange4"></span></p>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3 mb-5 mb-lg-0">
-                    <div class="slidecontainer"><input type="range" id="Range5" min="-7" max="9" value="1">
+                    <div class="slidecontainer">
+                       <h6><span class="badge badge-dark" style="padding-right:8px; padding-left:8px;">Closeness</span>
+                        <i class="far fa-question-circle"data-container="body" data-toggle="popover" data-placement="top" data-content="The slider help you to set the comparison between two centralities Closeness (on the lef) and Eigenvector (on the right), so if for example you set 4 means Closeness is 4 times important than Eigenvector or if you set 1/3 means Closeness is 1/3 important than Eigenvector, in other words Closeness is less important than Eigenvector.."></i>&nbsp;<span class="badge badge-dark">Eigenvector</span></h6>
+                        <input type="range" id="Range5" min="-7" max="9" value="1">
                         <p><span class="badge badge-light" id="valueRange5"></span></p>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3 mb-5 mb-lg-0">
-                    <div class="slidecontainer"><input type="range" id="Range6" min="-7" max="9" value="1">
+                    <div class="slidecontainer">
+                       <h6><span class="badge badge-dark">Betwenness</span>
+                        <i class="far fa-question-circle"data-container="body" data-toggle="popover" data-placement="top" data-content="The slider help you to set the comparison between two centralities Betwenness (on the lef) and Eigenvector (on the right), so if for example you set 4 means Betwenness is 4 times important than Eigenvector or if you set 1/3 means Betwenness is 1/3 important than Eigenvector, in other words Betwenness is less important than Eigenvector.." ></i>&nbsp;<span class="badge badge-dark">Eigenvector</span></h6>
+                        <input type="range" id="Range6" min="-7" max="9" value="1">
                         <p><span class="badge badge-light" id="valueRange6"></span></p>
                     </div>
                 </div>
@@ -126,7 +144,7 @@
               <a id="CR" class="btn btn-info btn-xl" role="button"> Consistency Ratio </a>
               <p style="margin-top: 10px;">CR&nbsp; :&nbsp;<span class="badge badge-light" id="valueCR"></span></p>
             </div>
-            <div id="btngetR" style="display: none;"><a id="getR" class="btn btn-dark btn-xl js-scroll-trigger" role="button" href="#rank">Get the Rank</a></div>
+            <div id="btngetR" style="display: none;"><a id="getR" class="btn btn-dark btn-xl js-scroll-trigger" role="button" href="#rank">Get Rankings</a></div>
         </div>
     </section>
     <section id="rank" >
@@ -162,14 +180,13 @@
     <footer class="footer text-center">
         <div class="container">
             <ul class="list-inline mb-5">
-                <li class="list-inline-item">&nbsp;<a class="text-white social-link rounded-circle" href="#"><i class="icon-social-facebook"></i></a></li>
-                <li class="list-inline-item">&nbsp;<a class="text-white social-link rounded-circle" href="#"><i class="icon-social-twitter"></i></a></li>
-                <li class="list-inline-item">&nbsp;<a class="text-white social-link rounded-circle" href="#"><i class="icon-social-github"></i></a></li>
+                <li class="list-inline-item">&nbsp;<a class="text-white social-link rounded-circle" href="https://github.com/Aelmouny11/IMproblem" target="_blank"><i class="icon-social-github"></i></a></li>
             </ul>
             <p class="text-muted mb-0 small">Copyright &nbsp;© UCA 2020</p>
-            <a href="">EZ-ZAKKAR Med</a>,
-            <a href="">Elmoumny Azddine</a>
+            <a href="https://github.com/simozakkar" rel="author">Ez-zakkar Med</a>,
+            <a href="https://github.com/Aelmouny11" rel="author">Elmoumny Azddine</a>
         </div><a class="js-scroll-trigger scroll-to-top rounded" href="#page-top"><i class="fa fa-angle-up"></i></a></footer>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
@@ -179,8 +196,7 @@
 
     <script src="/static/js/uploadValueRange.js"></script>
     <script src="/static/js/getRanking.js"></script>
-
-    <script src="/static/js/svgLastV.js"></script>
+    <script src="/static/js/svgGraph_D3js.js"></script>
 
 </body>
 
