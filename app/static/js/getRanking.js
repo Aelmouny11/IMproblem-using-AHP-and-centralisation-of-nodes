@@ -19,7 +19,6 @@ const objtChart = (xlab,ylab,typechart) =>{
 var mychart ;
 $(function(){
     $('#getR').click(function() {
-        $('#contentRank').show()
         const inf = {}
         inf[1]=document.getElementById('DiGraph').checked
         inf[2]=document.getElementById('weighted').checked
@@ -30,6 +29,7 @@ $(function(){
                 data:JSON.stringify(inf),
                 dataType: "json",
                 success: function(response) {
+                    $('#contentRank').show()
                     $table.bootstrapTable('refreshOptions', {
                         showColumns: true,
                         search:true,
@@ -47,7 +47,9 @@ $(function(){
                     graphchart(namefile,xs,ys);
                 },
                 error: function(err) {
-                    console.log(err);                
+                    console.log(err);
+                    $('#contentRank').hide()
+                    alert("Make sure your CSV in the right format and make sure to tick the options related to your network (weighted and/or directed graph)")             
                 }
             });
         return false;
