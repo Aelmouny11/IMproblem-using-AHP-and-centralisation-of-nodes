@@ -1,12 +1,12 @@
 import networkx as nx
-import numpy as np
 import json
 
 def get_Centrality(filepath, DiGraph = False, Weighted = False):
     
-    # filename += ".csv"
+    # load data from csv file 
     data = open(filepath, 'rb')
-    #make a Graph
+
+    # make a Graph
     if DiGraph:
         G = nx.DiGraph()
     else:
@@ -16,10 +16,9 @@ def get_Centrality(filepath, DiGraph = False, Weighted = False):
         G = nx.read_weighted_edgelist(data,delimiter=',',create_using=G)    
     else:
         G = nx.read_edgelist(data,delimiter=',',create_using=G)
+        
 
-    #computing the Centrality Measures
-
-    
+    # computing the Centrality Measures  
     DC = nx.degree_centrality(G)
     CC = nx.closeness_centrality(G)
     BC = nx.betweenness_centrality(G)
@@ -33,19 +32,29 @@ def get_Ranking(csvpath, jsonpath, DiGraph = False, Weighted = False):
 
     data = {}
     rows = []
+    xs   = []
+    ys   = []
+
     Centrality = get_Centrality(csvpath,DiGraph,Weighted)
     with open(jsonpath) as json_file:
         w = json.load(json_file)
         for el in Centrality["DC"]:
             if el!="source" and el!="target":
                 score=w['w0']*Centrality["DC"][el]+w['w1']*Centrality["CC"][el]+w['w2']*Centrality["BC"][el]+w['w3']*Centrality["EC"][el]
-                rows.append({"name":el,"score":score,"DC":Centrality["DC"][el],"CC":Centrality["CC"][el],"BC":Centrality["BC"][el],"EC":Centrality["EC"][el]})
-
+                rows.append({"id":0,"name":el,"score":score,"DC":Centrality["DC"][el],"CC":Centrality["CC"][el],"BC":Centrality["BC"][el],"EC":Centrality["EC"][el]})
+                xs.append(el)
+                ys.append(score)               
 
     data["total"]=len(rows)
-    data["totalNotFiltered"]=len(rows)
-    data["rows"]=rows
-    # print(dat)
+    data["xs"]=xs
+    data["ys"]=ys
 
-    
+    rows = sorted(rows, key=lambda node: node.get("score"), reverse=True)
+    index=0
+    for el in rows:
+        index+=1
+        el["id"]=index
+
+    data["rows"]=rows
+
     return data
