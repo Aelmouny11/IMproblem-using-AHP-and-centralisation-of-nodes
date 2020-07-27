@@ -6,4 +6,22 @@
 <span style="color:green;">app: </span>contains all app files like <span style="color:green;">static:</span> which contains files which handles the syling and js stuff and <span style="color:green;">templates:</span> as we all know stands for html files 
 
 <span style="color:green;"> wsgi.py:</span>  Where the server initialize its magic and other files like *.txt and Procfile are needed for Heroku deployement,i credit [<u>_this_</u>](https://kaushalvivek.github.io/2020-3-30-heroku-flask/) guy who helped out after a whole hostling .This is only the initial setup of the app , it still a lot of work to do in the backend with flask framework to visiti the page go [<u>_here_</u>](https://blooming-brook-40718.herokuapp.com/)
+<h4>Run application locally</h4>
+Set up your virtual environment:
 
+
+```shell
+virtualen -p `which python3.7` env
+```
+Activate yoour enviroment:
+```shell
+source env/bin/activate
+```
+Install requirements:
+```shell
+pip install requirements.txt
+```
+Run Application:
+```shell
+python wsgi.py
+```
