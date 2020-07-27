@@ -31,15 +31,21 @@ def get_Centrality(filepath, DiGraph = False, Weighted = False):
 
 def get_Ranking(csvpath, jsonpath, DiGraph = False, Weighted = False):
 
-    rank = {}
-    # print(DiGraph)
-    # print(Weighted)
+    data = {}
+    rows = []
     Centrality = get_Centrality(csvpath,DiGraph,Weighted)
-    # print(Centrality)
     with open(jsonpath) as json_file:
         w = json.load(json_file)
         for el in Centrality["DC"]:
-            rank[el]=w['w0']*Centrality["DC"][el]+w['w1']*Centrality["CC"][el]+w['w2']*Centrality["BC"][el]+w['w3']*Centrality["EC"][el]
+            if el!="source" and el!="target":
+                score=w['w0']*Centrality["DC"][el]+w['w1']*Centrality["CC"][el]+w['w2']*Centrality["BC"][el]+w['w3']*Centrality["EC"][el]
+                rows.append({"name":el,"score":score,"DC":Centrality["DC"][el],"CC":Centrality["CC"][el],"BC":Centrality["BC"][el],"EC":Centrality["EC"][el]})
 
-        # print(rank)
-    return rank
+
+    data["total"]=len(rows)
+    data["totalNotFiltered"]=len(rows)
+    data["rows"]=rows
+    # print(dat)
+
+    
+    return data

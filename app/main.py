@@ -6,7 +6,7 @@ import secrets
 app = Flask(__name__)
  
 
-
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 #app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 # __file__ refers to the file settings.py 
@@ -38,6 +38,12 @@ def uploadfile():
 
    file.save(os.path.join(app.config["UPLOAD_FILE"],name))
 
+   with open(os.path.join(app.config["UPLOAD_FILE"],name), 'r+') as new:
+      lines = new.readlines()
+      lines.insert(0,"source,target\n")
+      new.seek(0)
+      new.writelines(lines)
+
    return resp,200
    
 
@@ -46,11 +52,15 @@ def CR():
 
    array = request.get_json()
    resp = Consistency_Ratio(array)
-   response = make_response()
 
    name = request.cookies.get('CNA_AHP_Key')
    name += '.json'
-   
+   if resp[1][0] < 0:
+      resp[1][0]*=-1
+      resp[1][1]*=-1
+      resp[1][2]*=-1
+      resp[1][3]*=-1
+
    with open(os.path.join(app.config["UPLOAD_FILE"],name), 'w') as f:
       json.dump({"w0":float(resp[1][0]),"w1":float(resp[1][1]),"w2":float(resp[1][2]),"w3":float(resp[1][3])}, f)
 
@@ -79,6 +89,17 @@ def getRanking():
    return jsonify(rank),200
 
 
+# @app.after_request
+# def add_header(r):
+#     """
+#     Add headers to both force latest IE rendering engine or Chrome Frame,
+#     and also to cache the rendered page for 10 minutes.
+#     """
+#     r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+#     r.headers["Pragma"] = "no-cache"
+#     r.headers["Expires"] = "0"
+#     r.headers['Cache-Control'] = 'public, max-age=0'
+#     return r
 # if __name__ == '__main__':
 #    # app.run(debug=True)
 #    app.run(host='0.0.0.0', debug=True, port=3134)
