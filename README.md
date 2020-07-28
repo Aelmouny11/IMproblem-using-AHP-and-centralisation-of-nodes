@@ -7,9 +7,19 @@
 
 <span style="color:green;"> wsgi.py:</span>  Where the server initialize its magic and other files like *.txt and Procfile are needed for Heroku deployement,i credit [<u>_this_</u>](https://kaushalvivek.github.io/2020-3-30-heroku-flask/) guy who helped out after a whole hostling .This is only the initial setup of the app , it still a lot of work to do in the backend with flask framework to visiti the page go [<u>_here_</u>](https://blooming-brook-40718.herokuapp.com/)
 <h4>Run application locally</h4>
+
+
+Clone the repo:
+```shell
+
+
+git clone https://github.com/Aelmouny11/IMproblem-using-AHP-and-centralisation-of-nodes.git
+```
+Change diirectory:
+```shell
+cd IMproblem-using-AHP-and-centralisation-of-nodes
+```
 Set up your virtual environment:
-
-
 ```shell
 virtualen -p `which python3.7` env
 ```
@@ -25,3 +35,8 @@ Run Application:
 ```shell
 python wsgi.py
 ```
+Open  locally:
+
+ localhost:3030
+
+Port may differ for you
