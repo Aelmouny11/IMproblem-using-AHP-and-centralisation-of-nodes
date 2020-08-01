@@ -29,7 +29,7 @@ source env/bin/activate
 ```
 Install requirements:
 ```shell
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 Run Application:
 ```shell
