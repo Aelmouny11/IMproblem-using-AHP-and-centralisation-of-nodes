@@ -21,7 +21,7 @@ cd IMproblem-using-AHP-and-centralisation-of-nodes
 ```
 Set up your virtual environment:
 ```shell
-virtualen -p `which python3.7` env
+virtualenv -p `which python3.7` env
 ```
 Activate yoour enviroment:
 ```shell
